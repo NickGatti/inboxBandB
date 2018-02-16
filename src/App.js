@@ -71,7 +71,6 @@ class App extends Component {
 
   toggleRead = (selectedMessage) => {
     let otherMessages = this.state.messages.filter( message => selectedMessage.id != message.id )
-    console.log('otherMessages', otherMessages)
     let changedMessage = {
       id: selectedMessage.id,
       subject: selectedMessage.subject,
@@ -85,13 +84,26 @@ class App extends Component {
 
   toggleStarred = (selectedMessage) => {
     let otherMessages = this.state.messages.filter( message => selectedMessage.id != message.id )
-    console.log('otherMessages', otherMessages)
     let changedMessage = {
       id: selectedMessage.id,
       subject: selectedMessage.subject,
       read: selectedMessage.read,
       starred: !selectedMessage.starred,
       labels: selectedMessage.labels
+    }
+
+    this.setState({ messages: otherMessages.concat(changedMessage).sort((a,b) => a.id - b.id) })
+  }
+
+  toggleSelected = (selectedMessage) => {
+    let otherMessages = this.state.messages.filter( message => selectedMessage.id != message.id )
+    let changedMessage = {
+      id: selectedMessage.id,
+      subject: selectedMessage.subject,
+      read: selectedMessage.read,
+      starred: selectedMessage.starred,
+      labels: selectedMessage.labels,
+      selected: !selectedMessage.selected || false
     }
 
     this.setState({ messages: otherMessages.concat(changedMessage).sort((a,b) => a.id - b.id) })
@@ -104,7 +116,8 @@ class App extends Component {
       <MessageList 
         messages={this.state.messages}
         toggleRead={this.toggleRead}  
-        toggleStarred={this.toggleStarred}
+        toggleStarred={this.toggleStarred} 
+        toggleSelected={this.toggleSelected}
       />
       </div>
     );
