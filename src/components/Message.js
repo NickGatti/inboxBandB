@@ -2,7 +2,7 @@ import React from 'react'
 
 const Message = ({ message, toggleRead, toggleStarred, toggleSelected }) => {
     return (
-        <div className="row message unread">
+        <div className={`row message ${message.read ? 'read' : 'unread'} ${message.selected ? 'selected' : ''}`}>
             <div className="col-xs-1">
                 <div className="row">
                 <div className="col-xs-2">
@@ -14,7 +14,7 @@ const Message = ({ message, toggleRead, toggleStarred, toggleSelected }) => {
                 </div>
                 <div className="col-xs-2">
                     <i 
-                        className="star fa fa-star-o" 
+                        className={`star fa fa-star${message.starred ? '' :  '-o'}`} 
                         onClick={() => toggleStarred(message)} 
                     >
                     </i>
