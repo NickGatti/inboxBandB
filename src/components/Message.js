@@ -1,6 +1,7 @@
 import React from 'react'
 
 const Message = ({ message, toggleRead, toggleStarred, toggleSelected }) => {
+    let labelList = message.labels.map( label => <span className="label label-warning">{label}</span> )
     return (
         <div className={`row message ${message.read ? 'read' : 'unread'} ${message.selected ? 'selected' : ''}`}>
             <div className="col-xs-1">
@@ -25,6 +26,7 @@ const Message = ({ message, toggleRead, toggleStarred, toggleSelected }) => {
                 className="col-xs-11" 
                 onClick={() => toggleRead(message) } 
             >
+            {labelList}
                 <a href="#">
                     {message.subject}
                 </a>
